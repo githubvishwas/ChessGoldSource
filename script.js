@@ -99,7 +99,8 @@ var onDrop = function(source, target) {
   updateStatus();
 	if (move.captured) captureAudio.play()
         else moveAudio.play()
-    window.setTimeout(makeBestMove, 250);
+    //window.setTimeout(makeBestMove, 250);
+	makeBestMove()
 	if (move.captured) captureAudio.play()
         else moveAudio.play()
 };
