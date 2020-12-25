@@ -6,6 +6,8 @@ const endAudio = new Audio('sounds/Error.mp3');
 const gameOverAudio = new Audio('sounds/gameOver.wav');
 const gameFinishAudio = new Audio('sounds/Victory.mp3');
 const lowTimeAudio = new Audio('sounds/LowTime.mp3');
+let $boardHighlighting = $('#board');
+let squareClass = 'square-55d63'
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
 
@@ -28,13 +30,18 @@ var board,
   var elem = document.getElementById('col1');
 var whiteSquareGrey = '#a9a9a9'
 var blackSquareGrey = '#696969'
-
+function removeHighlights () {
+        $boardHighlighting.find('.' + squareClass)
+          .removeClass('highlight-white')
+        $boardHighlighting.find('.' + squareClass)
+          .removeClass('highlight-black')
+      }
 function removeGreySquares () {
-  $('#myBoard .square-55d63').css('background', '')
+  $('#board .square-55d63').css('background', '')
 }
 
 function greySquare (square) {
-  var $square = $('#myBoard .square-' + square)
+  var $square = $('#board .square-' + square)
 
   var background = whiteSquareGrey
   if ($square.hasClass('black-3c85d')) {
@@ -60,6 +67,7 @@ function onMouseoutSquare (square, piece) {
 }
 function onMouseoverSquare (square, piece) {
   // get list of possible moves for this square
+  greySquare(square)
   var moves = game.moves({
     square: square,
     verbose: true
@@ -89,8 +97,11 @@ var onDrop = function(source, target) {
   if (move === null) return 'snapback';
 
   updateStatus();
-
+	if (move.captured) captureAudio.play()
+        else moveAudio.play()
     window.setTimeout(makeBestMove, 250);
+	if (move.captured) captureAudio.play()
+        else moveAudio.play()
 };
 var makeBestMove = function () {
     if (game.game_over()) {
@@ -126,11 +137,13 @@ var updateStatus = function() {
   // checkmate?
   if (game.in_checkmate() === true) {
     status = 'Game over, ' + moveColor + ' is in checkmate.';
+	gameOverAudio.play()
   }
 
   // draw?
   else if (game.in_draw() === true) {
     status = 'Game over, drawn position';
+	gameOverAudio.play()
   }
 
   // game still on
@@ -140,6 +153,7 @@ var updateStatus = function() {
     // check?
     if (game.in_check() === true) {
       status += ', ' + moveColor + ' is in check';
+	  gameOverAudio.play()
     }
   }
 
@@ -241,6 +255,7 @@ function changeBoard() {
 	}
 }
 var newGame = function() {
+	startAudio.play();
     game.reset();
     board = ChessBoard('board', cfg);
 	board.orientation(elem.options[elem.selectedIndex].value)
@@ -273,6 +288,9 @@ function makeEngineMove (makeMove) {
 		  // illegal move
 		  if (move === null) return 'snapback'
 		  board.position(game.fen())
+		  removeHighlights();
+			$boardHighlighting.find('.square-' + move.from).addClass('highlight-' + squares[move.from])
+			$boardHighlighting.find('.square-' + move.to).addClass('highlight-' + squares[move.to])
 		  updateStatus()
 		  //console.log(getStaticEvalList(game.fen()))
 		}
