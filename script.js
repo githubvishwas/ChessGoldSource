@@ -167,21 +167,21 @@ var cfg = {
   onDragStart: onDragStart,
   onDrop: onDrop,
   onSnapEnd: onSnapEnd,
-  moveSpeed: 'slow',
-  snapbackSpeed: 'slow',
-  snapSpeed: 'slow',
-  trashSpeed: 'slow',
+  // moveSpeed: 'slow',
+  // snapbackSpeed: 'slow',
+  // snapSpeed: 'slow',
+  // trashSpeed: 'slow',
   onMouseoutSquare: onMouseoutSquare,
   onMouseoverSquare: onMouseoverSquare,
   orientation: elem.options[elem.selectedIndex].value
 };
 // did this based on a stackoverflow answer
 // http://stackoverflow.com/questions/29493624/cant-display-board-whereas-the-id-is-same-when-i-use-chessboard-js
-setTimeout(function() {
+// setTimeout(function() {
 
-    board = ChessBoard('board', cfg);
-//    updateStatus();
-}, 0);
+    // board = ChessBoard('board', cfg);
+// //    updateStatus();
+// }, 0);
 
 var takeBack = function() {
     game.undo();
@@ -241,6 +241,7 @@ function loadEngine() {
 }
 function changeLevel() {
 	newGame()
+	startAudio.play();
 	if (this.options[this.selectedIndex].value > 4) {
 
 		alert("Above level 4, things will get real slow on phones or low powered devices!")
@@ -249,16 +250,19 @@ function changeLevel() {
 
 function changeBoard() {
 	newGame()
+	startAudio.play();
 	if (this.options[this.selectedIndex].value == 'black') {
 
 		getMove()
 	}
 }
 var newGame = function() {
-	startAudio.play();
+	
     game.reset();
     board = ChessBoard('board', cfg);
+	//board.start(true)
 	board.orientation(elem.options[elem.selectedIndex].value)
+	
     updateStatus();
 }
 function makeEngineMove (makeMove) {
@@ -308,3 +312,4 @@ function makeEngineMove (makeMove) {
 	
 }
 _engine = loadEngine();
+newGame()
