@@ -30,6 +30,7 @@ var board,
   var elem = document.getElementById('col1');
 var whiteSquareGrey = '#a9a9a9'
 var blackSquareGrey = '#696969'
+var overlay
 function removeHighlights () {
         $boardHighlighting.find('.' + squareClass)
           .removeClass('highlight-white')
@@ -260,6 +261,7 @@ var newGame = function() {
 	
     game.reset();
     board = ChessBoard('board', cfg);
+	// overlay = new ChessboardArrows('board_wrapper');
 	//board.start(true)
 	board.orientation(elem.options[elem.selectedIndex].value)
 	
