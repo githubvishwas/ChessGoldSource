@@ -17,7 +17,7 @@
 	<meta http-equiv='cache-control' content='no-cache'>
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
-	<link rel="stylesheet" href="css/chessboard-0.3.0.min.css">
+	<link rel="stylesheet" href="css/chessboard-1.0.0.min.css">
 	<link rel="icon" href="chess.png">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
@@ -39,25 +39,26 @@
 
 
 <body>
-    <div id="board" style="width: 350px"></div>
+    <div id="board" style="width: 350px;padding:1em;"></div>
+	
+	<div id="meta" style="padding:1em;">
+		<p>Status: <span id="status" style="width: 250px"></span></p>
 
-	<p>Status: <span id="status" style="width: 250px"></span></p>
-
-	<button type="button"  class="btn btn-default" onclick = newGame()>New Game</button>
-	<button type="button" class="btn btn-default" id="undo" onclick="takeBack()";>Undo</button>
-	<select class="form-control" id="col1" onchange="changeBoard.call(this, event)">
-		<option value="white">Play as White</option>
-		<option value="black">Play as Black</option>
-	</select>
-	<select class="form-control" id="sel1" onchange="changeLevel.call(this, event)">
-                                <option value="1">Level: 1</option>
-                                <option value="2">Level: 2</option>
-                                <option value="3">Level: 3</option>
-                                <option value="4">Level: 4</option>
-                            </select>
-</div>
+		<button type="button"  class="btn btn-default" onclick = newGame()>New Game</button>
+		<button type="button" class="btn btn-default" id="undo" onclick="takeBack()";>Undo</button>
+		<select class="form-control" id="col1" onchange="changeBoard.call(this, event)">
+			<option value="white">Play as White</option>
+			<option value="black">Play as Black</option>
+		</select>
+		<select class="form-control" id="sel1" onchange="changeLevel.call(this, event)">
+									<option value="1">Level: 1</option>
+									<option value="2">Level: 2</option>
+									<option value="3">Level: 3</option>
+									<option value="4">Level: 4</option>
+								</select>
+	</div>
 	<p>© 2020 vishwas.ib@gmail.com</p>
-    <script src="js/chessboard-0.3.0.min.js"></script>
+    <script src="js/chessboard-1.0.0.min.js"></script>
 	<script src="js/chess.js"></script>
 	<script src="sf.js"></script>
 	<script src="script.js"></script>
