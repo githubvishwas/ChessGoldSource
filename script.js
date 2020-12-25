@@ -101,8 +101,7 @@ var onDrop = function(source, target) {
         else moveAudio.play()
     //window.setTimeout(makeBestMove, 250);
 	makeBestMove()
-	if (move.captured) captureAudio.play()
-        else moveAudio.play()
+	
 };
 var makeBestMove = function () {
     if (game.game_over()) {
@@ -289,6 +288,8 @@ function makeEngineMove (makeMove) {
 		  // illegal move
 		  if (move === null) return 'snapback'
 		  board.position(game.fen())
+		  if (move.captured) captureAudio.play()
+			else moveAudio.play()
 		  removeHighlights();
 			$boardHighlighting.find('.square-' + move.from).addClass('highlight-' + squares[move.from])
 			$boardHighlighting.find('.square-' + move.to).addClass('highlight-' + squares[move.to])
